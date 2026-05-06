@@ -1,0 +1,4 @@
+name,sku,barcode,category,price,costPrice,quantity
+Milk 1L,MILK-1L-001,8901234567890,Dairy,62,48,40
+Whole Wheat Bread,BREAD-WW-002,8901234567891,Bakery,45,31,25
+Basmati Rice 5kg,RICE-BAS-003,8901234567892,Grocery,520,430,18
