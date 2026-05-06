@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { queueWelcomeEmail } = require('../utils/mailer');
 
 // 1. REGISTER
 router.post('/register', async (req, res) => {
@@ -19,6 +20,9 @@ router.post('/register', async (req, res) => {
 
     // Create token so they are logged in immediately
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+
+    // Queue welcome email in background so signup stays fast
+    queueWelcomeEmail({ to: newUser.email, name: newUser.name });
     
     res.status(201).json({ 
       token, 

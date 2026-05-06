@@ -12,13 +12,23 @@ const UserSchema = new mongoose.Schema({
     unique: true, // Prevents duplicate email registrations
     lowercase: true,
     trim: true,
-    match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please add a valid email']
+    match: [/^[\w.+-]+@[\w-]+(\.[\w-]+)+$/, 'Please add a valid email']
   },
   password: {
     type: String,
     required: [true, 'Please add a password'],
     minlength: 6,
     select: true // Ensures password is included when we fetch the user for login checks
+  },
+  resetPasswordTokenHash: {
+    type: String,
+    default: null,
+    select: false
+  },
+  resetPasswordExpires: {
+    type: Date,
+    default: null,
+    select: false
   },
   createdAt: {
     type: Date,
